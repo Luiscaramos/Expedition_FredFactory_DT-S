@@ -87,3 +87,8 @@ The Docker image includes the following pre-installed stacks:
 
 ### Final Next Step
 Now that your environment is fully documented and configured, **would you like me to walk you through the commands to push this entire project to your GitHub repository?**
+
+Quick Access
+
+```bash
+echo "alias xarm-go='cd $(pwd) && ./humble-go.sh'" >> ~/.bashrc && source ~/.bashrc

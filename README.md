@@ -1,13 +1,10 @@
-# Expedition_FredFactory_DT-S
-Expedition digital twin and Shadow 
+# Expedition FredFactory DT-S
 
-# ROS 2 Humble xArm Development Environment
-
-This repository contains a Dockerized development environment for ROS 2 Humble, specifically configured for xArm robotics projects. It is designed to work seamlessly across different host operating systems (Ubuntu 22.04 and 24.04) and varying hardware configurations.
+This repository contains a Dockerized development environment for **ROS 2 Humble**, specifically configured for **xArm** robotics projects. It is designed to maintain a consistent environment across different host systems (Ubuntu 22.04 and Ubuntu 24.04) and varying hardware configurations.
 
 ## System Architecture
 The environment utilizes a dual-layer workspace approach:
-* [cite_start]**Underlay (`/opt/xarm_ws`):** Contains the core `xarm_ros2` drivers and MoveIt 2 dependencies, pre-built during the Docker image creation[cite: 3, 4, 5].
+* [cite_start]**Underlay (`/opt/xarm_ws`):** Contains the core `xarm_ros2` drivers, MoveIt 2, and hardware-specific dependencies, pre-built during the Docker image creation[cite: 1, 2, 4].
 * **Overlay (`/ros2_ws`):** Your local workspace mapped from the host machine, used for custom packages and project-specific code.
 
 ---
@@ -23,8 +20,8 @@ Depending on your GPU, additional setup may be required:
 | Hardware | Requirement |
 | :--- | :--- |
 | **NVIDIA GPU** | Install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html). |
-| **AMD/Intel GPU** | No additional toolkit needed; ensure `mesa-utils` are on the host. |
-| **No GPU (Headless/Lab)** | No hardware requirements; the system will fallback to software rendering. |
+| **AMD/Intel GPU** | No additional toolkit needed; ensure the container has access to `/dev/dri`. |
+| **No GPU (Lab/Headless)** | No hardware requirements; the system will fallback to CPU software rendering. |
 
 ---
 
@@ -32,22 +29,21 @@ Depending on your GPU, additional setup may be required:
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
-cd YOUR_REPO_NAME
+git clone [https://github.com/Luiscaramos/Expedition_FredFactory_DT-S.git](https://github.com/Luiscaramos/Expedition_FredFactory_DT-S.git)
+cd Expedition_FredFactory_DT-S
 
 2. Build the Environment
+```bash
+sudo docker compose build
 
 This command builds the ROS 2 Humble image and compiles the xArm drivers. This only needs to be run once or when the Dockerfile is modified.
-Bash
-
-sudo docker compose build
 
 3. Launch the Container
 
 Use the provided automation script. This script detects your hardware and configures OpenGL rendering automatically.
 
-Bash
 
+```bash
 chmod +x humble-go.sh
 ./humble-go.sh
 
@@ -66,8 +62,8 @@ Workspace Management
 
 Your custom code should be placed in workspaces/<project_name>/src.
 Inside the container, navigate to your project folder to build:
-Bash
 
+```bash
 cd /ros2_ws/workspaces/project_1
 colcon build --symlink-install
 source install/setup.bash

@@ -1,0 +1,22 @@
+# ROS 2 Build Artifacts
+build/
+install/
+log/
+
+# Python caching
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE settings
+.vscode/
+.idea/
+.project
+.settings/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Docker-specific (Optional: ignore if you use local overrides)
+.env
